@@ -1,8 +1,8 @@
 package com.example.taskappbar.model.Tarefa
 
-import java.util.*
+import java.util.Date
 
-class Tarefa(var nome:String, var detalhes: String, var createdDate: Date, var pzoFinal: Unit, status: Double){
+class Tarefa(var nome:String, var detalhes: String?, var createdDate: Date, var pzoFinal: Date, status: Double){
     }
 
         var status = 0.0

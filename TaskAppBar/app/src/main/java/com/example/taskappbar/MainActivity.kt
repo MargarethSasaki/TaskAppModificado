@@ -101,8 +101,8 @@ fun MainScreenContent(drawerState: DrawerState) {
                     Tarefa(
                         "Estudar Prova de Calculo", "livro de matematica",
                         Date(),
-                        Calendar.set(2023)
-                    )
+                        calendar.set(2023,)
+                )
                 )
 
                 val tProvaDeCalculo = Tarefa(
