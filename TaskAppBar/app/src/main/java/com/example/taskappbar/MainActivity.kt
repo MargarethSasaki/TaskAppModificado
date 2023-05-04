@@ -10,11 +10,13 @@ import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.AddCircle
 import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material.icons.filled.Notifications
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -24,9 +26,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.taskappbar.model.Tarefa.Tarefa
-import com.example.taskappbar.ui.theme.TaskAppBarTheme
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import java.util.*
 
@@ -44,7 +43,7 @@ fun MainScreenContent(drawerState: DrawerState) {
 
     val scaffoldState = rememberScaffoldState( drawerState = drawerState)
     var scope = rememberCoroutineScope()
-    var tabIndex = by remember {mutableStateOf(0)}
+    var tabIndex = remember {mutableStateOf(0)}
     Scaffold(
         scaffoldState = scaffoldState,
         topBar = {
@@ -75,6 +74,7 @@ fun MainScreenContent(drawerState: DrawerState) {
                     .height(16.dp)
             ) {
                 Text(text = "Opções!!!")
+                Text(text = "--------")
             }
             //Drawer content
             Column() {
@@ -93,13 +93,15 @@ fun MainScreenContent(drawerState: DrawerState) {
             ) {
                 MySearchField(modificador = Modifier.fillMaxWidth())
 
+
                 val calendar = Calendar.getInstance()
+
 
                 listOf<Tarefa>(
                     Tarefa(
                         "Estudar Prova de Calculo", "livro de matematica",
                         Date(),
-                        calendar.set(2023,)
+                        Calendar.set(2023)
                     )
                 )
 
@@ -120,17 +122,19 @@ fun MainScreenContent(drawerState: DrawerState) {
 
                 )
 
-                var minhaListaDeTarefas = ListOf<Tarefa>(tProvaDeCalculo, tProvaDeKotlin)
+                val minhaListaDeTarefas = listOf<Tarefa>(tProvaDeCalculo, tProvaDeKotlin)
 
                 MyTaskWidgetList(minhaListaDeTarefas)
-            }//Conteudo da coluna/column
+            }//Column Content
 
         },
+
         bottomBar = {
             BottomAppBar(
-                content = { Text("@All Copyrights reserved by my teacher")}
+                content = { Text("@All Copyrights reserved by my teacher") }
             )
         },
+
         isFloatingActionButtonDocked = false,
         floatingActionButton = { ExtendedFloatingActionButton(
             icon = {
@@ -140,8 +144,7 @@ fun MainScreenContent(drawerState: DrawerState) {
                 )
             },
             text = {Text(text = "ADD")},
-            onClick = {}
-        )}
+            onClick = {/*TODO*/} ) }
     )//fechando Scaffold
 }// fun MainScreenContent()
 
@@ -150,7 +153,7 @@ fun MainScreenContent(drawerState: DrawerState) {
 fun MyTaskWidgetList(listaDeTarefas: List<Tarefa>){
     listaDeTarefas.forEach(
         action = {
-            MyTaskWidget(modificador.fillMaxWidth(), tarefaASerMostrada = it)
+            MyTaskWidget(modificador = Modifier.fillMaxWidth(), tarefaASerMostrada = it)
 
         })
 
@@ -203,7 +206,7 @@ fun MyTaskWidget(
                 fontStyle = FontStyle.Italic
             )
             Text(
-                text = tarefaASerMostrada.detalhes,
+                text = tarefaASerMostrada.detalhes.toString(),
                 fontSize = 10.sp,
                 fontWeight = FontWeight.Normal,
                 fontStyle = FontStyle.Normal
